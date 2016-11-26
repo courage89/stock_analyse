@@ -6,45 +6,55 @@ package com.qingqing.stock_analyse.domain.result;
  */
 public class StockTZiTypeResult extends BaseAnalyseResult{
 
-	
-	//TODO:这个对象的定义有问题？？？
-	
-	/**
-	 * 今日最低价相对昨日最高价的涨幅
-	 */
-	private Double minIncreasePercent;
-	
 	/**
 	 * 今日最低价
 	 */
-	private Double minPriceToday;
+	private Double currentMin;
 	
 	/**
 	 * 今日最高价
 	 */
-	private Double maxPriceYesterday;
+	private Double currentMax;
 
-	public Double getMinIncreasePercent() {
-		return minIncreasePercent;
+	/**
+	 * 昨日最高价
+	 */
+	private Double prevMax;
+
+	/**
+	 * 今日最低价相对昨日最高价的涨幅
+	 */
+	private Double minIncrPercent;
+
+	public Double getCurrentMin() {
+		return currentMin;
 	}
 
-	public void setMinIncreasePercent(Double minIncreasePercent) {
-		this.minIncreasePercent = minIncreasePercent;
+	public void setCurrentMin(Double currentMin) {
+		this.currentMin = currentMin;
 	}
 
-	public Double getMinPriceToday() {
-		return minPriceToday;
+	public Double getCurrentMax() {
+		return currentMax;
 	}
 
-	public void setMinPriceToday(Double minPriceToday) {
-		this.minPriceToday = minPriceToday;
+	public void setCurrentMax(Double currentMax) {
+		this.currentMax = currentMax;
 	}
 
-	public Double getMaxPriceYesterday() {
-		return maxPriceYesterday;
+	public Double getPrevMax() {
+		return prevMax;
 	}
 
-	public void setMaxPriceYesterday(Double maxPriceYesterday) {
-		this.maxPriceYesterday = maxPriceYesterday;
+	public void setPrevMax(Double prevMax) {
+		this.prevMax = prevMax;
+	}
+
+	public Double getMinIncrPercent() {
+		return minIncrPercent;
+	}
+
+	public void setMinIncrPercent(Double minIncrPercent) {
+		this.minIncrPercent = minIncrPercent;
 	}
 }

@@ -6,7 +6,12 @@ import com.qingqing.stock_analyse.constants.StockAnalyseConstants;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class StockBaseInfo {
+public class StockInfo {
+
+    /**
+     * id
+     */
+    private Long id;
 
     /**
      * ¹ÉÆ±´úÂë
@@ -71,6 +76,14 @@ public class StockBaseInfo {
     private Date createTime;
 
     private Timestamp lastUpdateTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getStockCode() {
         return stockCode;
@@ -184,7 +197,7 @@ public class StockBaseInfo {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public static boolean isIncreaseToCeil(StockBaseInfo stockBaseInfo) {
-        return DoubleCompareUtil.gt(stockBaseInfo.getIncreasePercent(), StockAnalyseConstants.INCEASE_TO_CEIL_PERCENT_LIMIT);
+    public static boolean isIncreaseToCeil(StockInfo stockInfo) {
+        return DoubleCompareUtil.gt(stockInfo.getIncreasePercent(), StockAnalyseConstants.INCEASE_TO_CEIL_PERCENT_LIMIT);
     }
 }

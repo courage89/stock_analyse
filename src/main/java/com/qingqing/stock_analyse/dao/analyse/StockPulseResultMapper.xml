@@ -16,7 +16,8 @@
     id, stock_code, date, open_incr, close_incr, max_incr, is_deleted, create_time, last_update_time
   </sql>
 
-  <insert id="insertIgnore" parameterType="com.qingqing.stock_analyse.domain.result.StockPulseResult" >
+  <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
+           parameterType="com.qingqing.stock_analyse.domain.result.StockPulseResult" >
     insert ignore into t_pulse_trade (id, stock_code, date,
       open_incr, close_incr, max_incr, 
       is_deleted, create_time

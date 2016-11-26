@@ -6,7 +6,6 @@
     <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
     <result column="date" property="date" jdbcType="DATE" />
     <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -15,7 +14,8 @@
     id, stock_code, date, price, is_deleted, create_time, last_update_time
   </sql>
 
-  <insert id="insertIgnore" parameterType="com.qingqing.stock_analyse.domain.result.StockYiZiBanResult" >
+  <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
+          parameterType="com.qingqing.stock_analyse.domain.result.StockYiZiBanResult" >
     insert ignore into t_trade_yzi (id, stock_code, date,
       price, is_deleted, create_time, 
       last_update_time)

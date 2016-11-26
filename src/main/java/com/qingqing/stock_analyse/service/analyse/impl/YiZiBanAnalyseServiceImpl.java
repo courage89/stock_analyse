@@ -3,7 +3,7 @@ package com.qingqing.stock_analyse.service.analyse.impl;
 import com.qingqing.common.util.converter.lang.DoubleCompareUtil;
 import com.qingqing.stock_analyse.constants.StockAnalyseConstants;
 import com.qingqing.stock_analyse.dao.analyse.StockYiZiBanResultMapper;
-import com.qingqing.stock_analyse.domain.StockBaseInfo;
+import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockYiZiBanResult;
 import com.qingqing.stock_analyse.service.StockBaseInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
@@ -51,19 +51,19 @@ public class YiZiBanAnalyseServiceImpl implements YiZiBanAnalyseService {
 
     @Override
     public StockYiZiBanResult analyseYiZiBanResult(Date date, String stockCode) {
-        StockBaseInfo stockBaseInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
-        double openPrice = stockBaseInfo.getOpenPrice();
-        double closePrice = stockBaseInfo.getClosePrice();
-        double maxPrice = stockBaseInfo.getMaxPrice();
-        double minPrice = stockBaseInfo.getMinPrice();
+        StockInfo stockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
+        double openPrice = stockInfo.getOpenPrice();
+        double closePrice = stockInfo.getClosePrice();
+        double maxPrice = stockInfo.getMaxPrice();
+        double minPrice = stockInfo.getMinPrice();
 
-        if (stockBaseInfo.getIncreasePercent() > StockAnalyseConstants.INCEASE_TO_CEIL_PERCENT_LIMIT
+        if (stockInfo.getIncreasePercent() > StockAnalyseConstants.INCEASE_TO_CEIL_PERCENT_LIMIT
                 && DoubleCompareUtil.equals(openPrice, closePrice)
                 && DoubleCompareUtil.equals(maxPrice, minPrice)
                 && DoubleCompareUtil.equals(openPrice, maxPrice)) {
 
             StockYiZiBanResult result = new StockYiZiBanResult();
-            result.setDate(stockBaseInfo.getDate());
+            result.setDate(stockInfo.getDate());
             result.setNextDayIncreasePercent(null);
             result.setNextWeekIncreasePercent(null);
             result.setStockCode(stockCode);

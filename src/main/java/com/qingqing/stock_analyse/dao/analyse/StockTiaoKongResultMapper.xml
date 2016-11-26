@@ -7,7 +7,6 @@
     <result column="date" property="date" jdbcType="DATE" />
     <result column="prev_max" property="prevMax" jdbcType="DOUBLE" />
     <result column="current_min" property="currentMin" jdbcType="DOUBLE" />
-    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -16,7 +15,8 @@
     id, stock_code, date, prev_max, current_min, is_deleted, create_time, last_update_time
   </sql>
 
-  <insert id="insertIgnore" parameterType="com.qingqing.stock_analyse.domain.result.StockTiaoKongResult" >
+  <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
+          parameterType="com.qingqing.stock_analyse.domain.result.StockTiaoKongResult" >
     insert ignore into t_trade_tiaokong (id, stock_code, date,
       prev_max, current_min, is_deleted, 
       create_time, last_update_time)

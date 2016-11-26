@@ -3,7 +3,7 @@ package com.qingqing.stock_analyse.service.analyse.impl;
 import com.qingqing.common.util.converter.lang.DoubleCompareUtil;
 import com.qingqing.stock_analyse.constants.StockAnalyseConstants;
 import com.qingqing.stock_analyse.dao.analyse.StockPulseResultMapper;
-import com.qingqing.stock_analyse.domain.StockBaseInfo;
+import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockPulseResult;
 import com.qingqing.stock_analyse.service.StockBaseInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
@@ -11,7 +11,6 @@ import com.qingqing.stock_analyse.service.analyse.PulseAnalyseService;
 import com.qingqing.stock_analyse.util.StockDateUtil;
 import com.qingqing.stock_analyse.util.StockPriceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -54,12 +53,12 @@ public class PulseAnalyseServiceImpl implements PulseAnalyseService {
 
     @Override
     public StockPulseResult analysePulseResult(Date date, String stockCode) {
-        StockBaseInfo lastStockBaseInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
-        StockBaseInfo stockBaseInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
-        if (lastStockBaseInfo != null && lastStockBaseInfo != null) {
-            Double openIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockBaseInfo.getClosePrice(), stockBaseInfo.getOpenPrice());
-            Double closeIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockBaseInfo.getClosePrice(), stockBaseInfo.getClosePrice());
-            Double maxIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockBaseInfo.getClosePrice(), stockBaseInfo.getMaxPrice());
+        StockInfo lastStockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
+        StockInfo stockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
+        if (lastStockInfo != null && lastStockInfo != null) {
+            Double openIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getOpenPrice());
+            Double closeIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getClosePrice());
+            Double maxIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getMaxPrice());
 
             if (DoubleCompareUtil.lt(openIncreasePercent, StockAnalyseConstants.OPEN_PRICE_INCREASE_PERCENT_LIMIT_IN_PULSE)
                     && DoubleCompareUtil.lt(closeIncreasePercent, StockAnalyseConstants.CLOSE_PRICE_INCREASE_PERCENT_LIMIT_IN_PULSE)

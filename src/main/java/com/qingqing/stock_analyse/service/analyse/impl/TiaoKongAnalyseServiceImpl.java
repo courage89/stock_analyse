@@ -2,7 +2,7 @@ package com.qingqing.stock_analyse.service.analyse.impl;
 
 import com.qingqing.common.util.converter.lang.DoubleCompareUtil;
 import com.qingqing.stock_analyse.dao.analyse.StockTiaoKongResultMapper;
-import com.qingqing.stock_analyse.domain.StockBaseInfo;
+import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockTiaoKongResult;
 import com.qingqing.stock_analyse.service.StockBaseInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
@@ -52,15 +52,15 @@ public class TiaoKongAnalyseServiceImpl implements TiaoKongAnalyseService {
     @Override
     public StockTiaoKongResult analyseTiaoKongResult(Date date, String stockCode) {
 
-        StockBaseInfo lastStockBaseInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
-        if (lastStockBaseInfo != null && StockBaseInfo.isIncreaseToCeil(lastStockBaseInfo)) {
-            StockBaseInfo stockBaseInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
-            if (stockBaseInfo != null && DoubleCompareUtil.gt(stockBaseInfo.getMinPrice(), lastStockBaseInfo.getMaxPrice())) {
+        StockInfo lastStockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
+        if (lastStockInfo != null && StockInfo.isIncreaseToCeil(lastStockInfo)) {
+            StockInfo stockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
+            if (stockInfo != null && DoubleCompareUtil.gt(stockInfo.getMinPrice(), lastStockInfo.getMaxPrice())) {
                 StockTiaoKongResult result = new StockTiaoKongResult();
-                result.setPrevMax(lastStockBaseInfo.getMaxPrice());
+                result.setPrevMax(lastStockInfo.getMaxPrice());
                 result.setDate(date);
                 result.setCreateTime(new Date());
-                result.setCurrentMin(stockBaseInfo.getMinPrice());
+                result.setCurrentMin(stockInfo.getMinPrice());
                 result.setStockCode(stockCode);
 
                 result.setNextDayIncreasePercent(null);
