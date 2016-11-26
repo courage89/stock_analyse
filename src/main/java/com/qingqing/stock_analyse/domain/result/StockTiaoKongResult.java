@@ -9,26 +9,26 @@ public class StockTiaoKongResult extends BaseAnalyseResult{
 	/**
 	 * 今天最低价
 	 */
-	private Double todayMinPrice;
+	private Double currentMin;
 	
 	/**
 	 * 昨天涨停价
 	 */
-	private Double yesterdayCeilPrice;
+	private Double prevMax;
 
-	public Double getTodayMinPrice() {
-		return todayMinPrice;
+	public Double getCurrentMin() {
+		return currentMin;
 	}
 
-	public void setTodayMinPrice(Double todayMinPrice) {
-		this.todayMinPrice = todayMinPrice;
+	public void setCurrentMin(Double currentMin) {
+		this.currentMin = currentMin;
 	}
 
-	public Double getYesterdayCeilPrice() {
-		return yesterdayCeilPrice;
+	public Double getPrevMax() {
+		return prevMax;
 	}
 
-	public void setYesterdayCeilPrice(Double yesterdayCeilPrice) {
-		this.yesterdayCeilPrice = yesterdayCeilPrice;
+	public void setPrevMax(Double prevMax) {
+		this.prevMax = prevMax;
 	}
 }

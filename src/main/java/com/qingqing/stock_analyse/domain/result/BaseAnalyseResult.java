@@ -8,6 +8,8 @@ import java.util.Date;
  */
 public class BaseAnalyseResult {
 
+	private Long id;
+
 	private String stockCode;
 	
 	private Date date;
@@ -19,7 +21,15 @@ public class BaseAnalyseResult {
 	private Double nextDayIncreasePercent;
 	
 	private Double nextWeekIncreasePercent;
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getStockCode() {
 		return stockCode;
 	}

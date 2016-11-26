@@ -8,3 +8,6 @@
 /target/classes/com/qingqing/stock_analyse/service/analyse/*.class
 /target/classes/com/qingqing/stock_analyse/service/analyse/impl/*.class
 /target/classes/com/qingqing/stock_analyse/util/*.class
+/.idea/libraries
+/.idea/artifacts
+/.idea

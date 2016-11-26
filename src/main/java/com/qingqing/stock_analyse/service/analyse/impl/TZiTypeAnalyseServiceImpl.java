@@ -3,9 +3,9 @@ package com.qingqing.stock_analyse.service.analyse.impl;
 import java.util.Date;
 import java.util.Map;
 
+import com.qingqing.stock_analyse.dao.analyse.StockTZiTypeResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.qingqing.stock_analyse.dao.analyse.TZiTypeAnalyseMapper;
 import com.qingqing.stock_analyse.domain.result.StockTZiTypeResult;
 import com.qingqing.stock_analyse.service.StockBaseInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
@@ -18,7 +18,7 @@ public class TZiTypeAnalyseServiceImpl implements TZiTypeAnalyseService {
 	@Autowired
 	private StockBaseInfoService stockBaseInfoService;
 	@Autowired
-	private TZiTypeAnalyseMapper tZiTypeAnalyseMapper;
+	private StockTZiTypeResultMapper stockTZiTypeResultMapper;
 	
 	@Override
 	public Map<String, StockTZiTypeResult> findAllTZiTypeResult(Date date) {
