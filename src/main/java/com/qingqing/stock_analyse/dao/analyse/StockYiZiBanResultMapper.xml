@@ -26,14 +26,14 @@
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
-    <include ref_id="Base_Column_List"></include>
+    <include refid="Base_Column_List"></include>
     from t_trade_yzi
     where id = #{id,jdbcType=INTEGER}
   </select>
 
   <select id="findAllByDate" resultMap="BaseResultMap">
     select
-    <include ref_id="Base_Column_List"></include>
+    <include refid="Base_Column_List"></include>
     from t_trade_yzi
     where date = #{date, jdbcType=DATE}
   </select>

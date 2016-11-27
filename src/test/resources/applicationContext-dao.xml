@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="qq_sa" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver">
+        </property>
+        <property name="url">
+            <value>${database.sa.url}</value>
+        </property>
+        <property name="username">
+            <value>${database.sa.username}</value>
+        </property>
+        <property name="password">
+            <value>${database.sa.password}</value>
+        </property>
+
+        <property name="maxIdle" value="10"/>
+        <property name="minIdle" value="5"/>
+        <property name="maxActive" value="15"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="280"/>
+        <property name="maxWait" value="30000"/>
+        <property name="validationQuery">
+            <value>SELECT 1 FROM DUAL</value>
+        </property>
+        <property name="testOnBorrow">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <bean id="sqlSaSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="qq_sa"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSaSessionFactory"/>
+        <property name="basePackage" value="com.qingqing.stock_analyse.dao.analyse"/>
+    </bean>
+
+    <bean id="transactionManagerSa"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <qualifier value="transactionManagerRrqa"/>
+        <property name="dataSource" ref="qq_sa" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerSa" />
+
+</beans>

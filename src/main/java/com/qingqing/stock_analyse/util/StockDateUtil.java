@@ -16,7 +16,7 @@ public class StockDateUtil {
 		//9 表示最长的黄金周假期+周六、周日
 		for(int i=0; i<9; i++){
 			cal.add(Calendar.DAY_OF_MONTH, -1);
-			if(java.util.Calendar.SUNDAY == cal.get(Calendar.DAY_OF_WEEK) ||
+			if(Calendar.SATURDAY == cal.get(Calendar.DAY_OF_WEEK) ||
 					java.util.Calendar.SUNDAY == cal.get(Calendar.DAY_OF_WEEK) ||
 							isHoliday(cal.getTime()) ){
 				continue;
@@ -40,5 +40,9 @@ public class StockDateUtil {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		return new Timestamp(cal.getTimeInMillis());
+	}
+
+	public static void main(String[] args) {
+		System.out.println(findLastOpenMarketkDay(new Date()));
 	}
 }

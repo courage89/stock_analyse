@@ -1,51 +1,128 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qingqing.stock_analyse.dao.analyse.StockInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.qingqing.stock_analyse.domain.StockInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
-    <result column="date" property="date" jdbcType="DATE" />
-    <result column="open_price" property="openPrice" jdbcType="DOUBLE" />
-    <result column="max_price" property="maxPrice" jdbcType="DOUBLE" />
-    <result column="min_price" property="minPrice" jdbcType="DOUBLE" />
-    <result column="close_price" property="closePrice" jdbcType="DOUBLE" />
-    <result column="incr_percent" property="incrPercent" jdbcType="DOUBLE" />
-    <result column="wave_percent" property="wavePercent" jdbcType="DOUBLE" />
-    <result column="all_price" property="allPrice" jdbcType="DOUBLE" />
-    <result column="exchange_percent" property="exchangePercent" jdbcType="DOUBLE" />
-    <result column="all_cnt" property="allCnt" jdbcType="INTEGER" />
-    <result column="deal_cnt" property="dealCnt" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+<mapper namespace="com.qingqing.stock_analyse.dao.analyse.StockInfoMapper">
+    <resultMap id="BaseResultMap" type="com.qingqing.stock_analyse.domain.StockInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="stock_code" property="stockCode" jdbcType="VARCHAR"/>
+        <result column="stock_name" property="stockName" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="DATE"/>
+        <result column="open_price" property="openPrice" jdbcType="DOUBLE"/>
+        <result column="max_price" property="maxPrice" jdbcType="DOUBLE"/>
+        <result column="min_price" property="minPrice" jdbcType="DOUBLE"/>
+        <result column="close_price" property="closePrice" jdbcType="DOUBLE"/>
+        <result column="incr_percent" property="increasePercent" jdbcType="DOUBLE"/>
+        <result column="wave_percent" property="wavePercent" jdbcType="DOUBLE"/>
+        <result column="all_price" property="allPrice" jdbcType="DOUBLE"/>
+        <result column="exchange_percent" property="exchangePercent" jdbcType="DOUBLE"/>
+        <result column="all_cnt" property="allCnt" jdbcType="INTEGER"/>
+        <result column="deal_cnt" property="dealCnt" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
-  <sql id="Base_Column_List">
-    id, stock_code, date, open_price, max_price, min_price, close_price, incr_percent,
+    <sql id="Base_Column_List">
+    id, stock_code, stock_name, date, open_price, max_price, min_price, close_price, incr_percent,
     wave_percent, all_price, exchange_percent, all_cnt, deal_cnt, is_deleted, create_time,
     last_update_time
   </sql>
 
-  <insert id="insert" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
-           parameterType="com.qingqing.stock_analyse.domain.StockInfo" >
-    insert into t_stock_info (id, stock_code, date, 
-      open_price, max_price, min_price, 
-      close_price, incr_percent, wave_percent, 
-      all_price, exchange_percent, all_cnt, 
-      deal_cnt, is_deleted, create_time, 
-      last_update_time)
-    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
-      #{openPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE}, #{minPrice,jdbcType=DOUBLE}, 
-      #{closePrice,jdbcType=DOUBLE}, #{incrPercent,jdbcType=DOUBLE}, #{wavePercent,jdbcType=DOUBLE}, 
-      #{allPrice,jdbcType=DOUBLE}, #{exchangePercent,jdbcType=DOUBLE}, #{allCnt,jdbcType=INTEGER}, 
-      #{dealCnt,jdbcType=INTEGER}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP})
-  </insert>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
+             parameterType="com.qingqing.stock_analyse.domain.StockInfo">
+        insert into t_stock_info (
+        stock_code,
+        stock_name,
+        date,
+        open_price,
+        max_price,
+        min_price,
+        close_price,
+        incr_percent,
+        wave_percent,
+        all_price,
+        exchange_percent,
+        all_cnt,
+        deal_cnt,
+        is_deleted,
+        create_time,
+        last_update_time)
+        values
+            (
+            #{stockCode,jdbcType=VARCHAR},
+            #{stockName,jdbcType=VARCHAR},
+            #{date,jdbcType=DATE},
+            #{openPrice,jdbcType=DOUBLE},
+            #{maxPrice,jdbcType=DOUBLE},
+            #{minPrice,jdbcType=DOUBLE},
+            #{closePrice,jdbcType=DOUBLE},
+            #{increasePercent,jdbcType=DOUBLE},
+            #{wavePercent,jdbcType=DOUBLE},
+            #{allPrice,jdbcType=DOUBLE},
+            #{exchangePercent,jdbcType=DOUBLE},
+            #{allCnt,jdbcType=INTEGER},
+            #{dealCnt,jdbcType=INTEGER},
+            0, now(), now())
+    </insert>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include ref_id="Base_Column_List"></include>
-    from t_stock_info
-    where id = #{id,jdbcType=INTEGER}
-  </select>
+    <insert id="batchInsert" parameterType="com.qingqing.stock_analyse.domain.StockInfo">
+        insert into t_stock_info (
+        stock_code,
+        stock_name,
+        date,
+        open_price,
+        max_price,
+        min_price,
+        close_price,
+        incr_percent,
+        wave_percent,
+        all_price,
+        exchange_percent,
+        all_cnt,
+        deal_cnt,
+        is_deleted,
+        create_time,
+        last_update_time)
+        values
+        <foreach item="stockInfo" index="index" collection="stockInfos" open="" separator="," close="">
+            (#{stockInfo.stockCode,jdbcType=VARCHAR},
+            #{stockInfo.stockName,jdbcType=VARCHAR},
+            #{stockInfo.date,jdbcType=DATE},
+            #{stockInfo.openPrice,jdbcType=DOUBLE},
+            #{stockInfo.maxPrice,jdbcType=DOUBLE},
+            #{stockInfo.minPrice,jdbcType=DOUBLE},
+            #{stockInfo.closePrice,jdbcType=DOUBLE},
+            #{stockInfo.increasePercent,jdbcType=DOUBLE},
+            #{stockInfo.wavePercent,jdbcType=DOUBLE},
+            #{stockInfo.allPrice,jdbcType=DOUBLE},
+            #{stockInfo.exchangePercent,jdbcType=DOUBLE},
+            #{stockInfo.allCnt,jdbcType=INTEGER},
+            #{stockInfo.dealCnt,jdbcType=INTEGER},
+            0, now(), now())
+        </foreach>
+    </insert>
 
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_stock_info
+        where id = #{id,jdbcType=INTEGER} and is_deleted = 0
+    </select>
+
+    <select id="findByStockCodeAndDate" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_stock_info
+        where stock_code = #{stockCode,jdbcType=VARCHAR}
+        and date = #{stockDate, jdbcType=DATE}
+        and is_deleted = 0
+    </select>
+
+    <select id="findByStockCodeAndDateRange" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_stock_info
+        where stock_code = #{stockCode,jdbcType=VARCHAR}
+        and date >= #{stockDate, jdbcType=DATE}
+        AND <![CDATA[date <= #{endDate, jdbcType=DATE}]]>
+        and is_deleted = 0
+    </select>
 </mapper>

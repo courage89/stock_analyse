@@ -30,14 +30,14 @@
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
-    <include ref_id = "Base_Column_List"></include>
+    <include refid = "Base_Column_List"></include>
     from t_pulse_trade
     where id = #{id,jdbcType=INTEGER}
   </select>
 
   <select id="findAllByDate" resultMap="BaseResultMap">
     select
-    <include ref_id = "Base_Column_List"></include>
+    <include refid= "Base_Column_List"></include>
     from t_pulse_trade
     where
     date = #{date,jdbcType=DATE}

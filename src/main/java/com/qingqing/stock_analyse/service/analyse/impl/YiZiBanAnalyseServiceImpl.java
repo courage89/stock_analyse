@@ -5,7 +5,7 @@ import com.qingqing.stock_analyse.constants.StockAnalyseConstants;
 import com.qingqing.stock_analyse.dao.analyse.StockYiZiBanResultMapper;
 import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockYiZiBanResult;
-import com.qingqing.stock_analyse.service.StockBaseInfoService;
+import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.YiZiBanAnalyseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class YiZiBanAnalyseServiceImpl implements YiZiBanAnalyseService {
     @Autowired
     private StockCodeService stockCodeService;
     @Autowired
-    private StockBaseInfoService stockBaseInfoService;
+    private StockInfoService stockInfoService;
     @Autowired
     private StockYiZiBanResultMapper stockYiZiBanResultMapper;
 
@@ -51,7 +51,7 @@ public class YiZiBanAnalyseServiceImpl implements YiZiBanAnalyseService {
 
     @Override
     public StockYiZiBanResult analyseYiZiBanResult(Date date, String stockCode) {
-        StockInfo stockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
+        StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
         double openPrice = stockInfo.getOpenPrice();
         double closePrice = stockInfo.getClosePrice();
         double maxPrice = stockInfo.getMaxPrice();

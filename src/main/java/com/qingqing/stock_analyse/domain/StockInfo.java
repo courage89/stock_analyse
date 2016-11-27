@@ -19,6 +19,11 @@ public class StockInfo {
     private String stockCode;
 
     /**
+    * 股票名称
+    */
+    private String stockName;
+
+    /**
      * 股票日期
      */
     private Date date;
@@ -71,7 +76,7 @@ public class StockInfo {
     /**
      * 成交
      */
-    private Long dealCnt;
+    private Integer dealCnt;
 
     private Date createTime;
 
@@ -173,11 +178,11 @@ public class StockInfo {
         this.exchangePercent = exchangePercent;
     }
 
-    public Long getDealCnt() {
+    public Integer getDealCnt() {
         return dealCnt;
     }
 
-    public void setDealCnt(Long dealCnt) {
+    public void setDealCnt(Integer dealCnt) {
         this.dealCnt = dealCnt;
     }
 
@@ -195,6 +200,14 @@ public class StockInfo {
 
     public void setLastUpdateTime(Timestamp lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 
     public static boolean isIncreaseToCeil(StockInfo stockInfo) {

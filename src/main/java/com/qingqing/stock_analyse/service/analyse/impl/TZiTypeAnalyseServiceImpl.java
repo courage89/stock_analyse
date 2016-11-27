@@ -7,7 +7,7 @@ import com.qingqing.stock_analyse.dao.analyse.StockTZiTypeResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.qingqing.stock_analyse.domain.result.StockTZiTypeResult;
-import com.qingqing.stock_analyse.service.StockBaseInfoService;
+import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.TZiTypeAnalyseService;
 
@@ -16,7 +16,7 @@ public class TZiTypeAnalyseServiceImpl implements TZiTypeAnalyseService {
 	@Autowired
 	private StockCodeService stockCodeService;
 	@Autowired
-	private StockBaseInfoService stockBaseInfoService;
+	private StockInfoService stockInfoService;
 	@Autowired
 	private StockTZiTypeResultMapper stockTZiTypeResultMapper;
 	

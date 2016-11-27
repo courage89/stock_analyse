@@ -18,12 +18,10 @@
                 <value>classpath:common.properties</value>
             </list>
         </property>
-        <!-- property name="ignoreUnresolvablePlaceholders" value="true" />
-        <property name="valueSeparator" value="?" /-->
         <property name="fileEncoding" value="utf-8" />
     </bean>
 
-    <context:component-scan base-package="com.qingqing.stock_analyse">
+    <context:component-scan base-package="com.qingqing.stock_analyse.service.impl">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 </beans>

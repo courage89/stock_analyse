@@ -11,3 +11,4 @@
 /.idea/libraries
 /.idea/artifacts
 /.idea
+/target/classes/com/qingqing/stock_analyse/bean/juhedata/*.class

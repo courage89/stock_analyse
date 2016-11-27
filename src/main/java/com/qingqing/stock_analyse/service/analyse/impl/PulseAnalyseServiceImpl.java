@@ -5,7 +5,7 @@ import com.qingqing.stock_analyse.constants.StockAnalyseConstants;
 import com.qingqing.stock_analyse.dao.analyse.StockPulseResultMapper;
 import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockPulseResult;
-import com.qingqing.stock_analyse.service.StockBaseInfoService;
+import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.PulseAnalyseService;
 import com.qingqing.stock_analyse.util.StockDateUtil;
@@ -24,7 +24,7 @@ public class PulseAnalyseServiceImpl implements PulseAnalyseService {
     @Autowired
     private StockCodeService stockCodeService;
     @Autowired
-    private StockBaseInfoService stockBaseInfoService;
+    private StockInfoService stockInfoService;
     @Autowired
     private StockPulseResultMapper stockPulseResultMapper;
 
@@ -53,8 +53,8 @@ public class PulseAnalyseServiceImpl implements PulseAnalyseService {
 
     @Override
     public StockPulseResult analysePulseResult(Date date, String stockCode) {
-        StockInfo lastStockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
-        StockInfo stockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
+        StockInfo lastStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
+        StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
         if (lastStockInfo != null && lastStockInfo != null) {
             Double openIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getOpenPrice());
             Double closeIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getClosePrice());

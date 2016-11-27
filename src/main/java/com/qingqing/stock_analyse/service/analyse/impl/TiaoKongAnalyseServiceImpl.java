@@ -4,7 +4,7 @@ import com.qingqing.common.util.converter.lang.DoubleCompareUtil;
 import com.qingqing.stock_analyse.dao.analyse.StockTiaoKongResultMapper;
 import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockTiaoKongResult;
-import com.qingqing.stock_analyse.service.StockBaseInfoService;
+import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.TiaoKongAnalyseService;
 import com.qingqing.stock_analyse.util.StockDateUtil;
@@ -22,7 +22,7 @@ public class TiaoKongAnalyseServiceImpl implements TiaoKongAnalyseService {
     @Autowired
     private StockCodeService stockCodeService;
     @Autowired
-    private StockBaseInfoService stockBaseInfoService;
+    private StockInfoService stockInfoService;
     @Autowired
     private StockTiaoKongResultMapper stockTiaoKongResultMapper;
 
@@ -52,9 +52,9 @@ public class TiaoKongAnalyseServiceImpl implements TiaoKongAnalyseService {
     @Override
     public StockTiaoKongResult analyseTiaoKongResult(Date date, String stockCode) {
 
-        StockInfo lastStockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
+        StockInfo lastStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
         if (lastStockInfo != null && StockInfo.isIncreaseToCeil(lastStockInfo)) {
-            StockInfo stockInfo = stockBaseInfoService.findByStockCodeAndDate(stockCode, date);
+            StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
             if (stockInfo != null && DoubleCompareUtil.gt(stockInfo.getMinPrice(), lastStockInfo.getMaxPrice())) {
                 StockTiaoKongResult result = new StockTiaoKongResult();
                 result.setPrevMax(lastStockInfo.getMaxPrice());
