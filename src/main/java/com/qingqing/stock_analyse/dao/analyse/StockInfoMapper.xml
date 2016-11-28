@@ -28,7 +28,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
              parameterType="com.qingqing.stock_analyse.domain.StockInfo">
-        insert into t_stock_info (
+        insert ignore into t_stock_info (
         stock_code,
         stock_name,
         date,
@@ -64,7 +64,7 @@
     </insert>
 
     <insert id="batchInsert" parameterType="com.qingqing.stock_analyse.domain.StockInfo">
-        insert into t_stock_info (
+        insert ignore into t_stock_info (
         stock_code,
         stock_name,
         date,

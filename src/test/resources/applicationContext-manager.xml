@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="stockAnalyseManager" class="com.qingqing.stock_analyse.manager.StockAnalyseManager"/>
+<bean id="stockAnalyseManager" class="com.qingqing.stock_analyse.manager.StockAnalyseManager"/>
 
-    <bean id="juheDataManager" class="com.qingqing.stock_analyse.manager.JuHeDataManager">
-        <property name="appKey" value="${config.juhedata.appkey}"/>
-    </bean>
+<bean id="juheDataManager" class="com.qingqing.stock_analyse.manager.JuHeDataManager">
+    <property name="appKey" value="${config.juhedata.appkey}"/>
+</bean>
 </beans>

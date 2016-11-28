@@ -10,7 +10,5 @@ public class StockAnalyseConstants {
 	public static final Double MAX_PRICE_INCREASE_PERCENT_LIMIT_IN_PULSE = 0.09;
 	public static final Double CLOSE_PRICE_INCREASE_PERCENT_LIMIT_IN_PULSE = 0.05;
 	
-
-	public static final Integer SH_STOCK_CNT = 1164;
 	public static final Integer STOCK_CNT_PER_REQUEST = 20;
 }

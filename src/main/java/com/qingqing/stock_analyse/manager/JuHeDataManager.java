@@ -64,7 +64,7 @@ public class JuHeDataManager {
         }
     }
 
-    public void getStockDetail(StockMarket stockMarket) {
+    public void getStockDetailForHS(StockMarket stockMarket) {
         String result = null;
         Map params = new HashMap();//请求参数
         params.put("gid", "");//股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009
@@ -84,7 +84,7 @@ public class JuHeDataManager {
     }
 
     //2.香港股市
-    public void getRequest2() {
+    public void getStockDetailForHongKong() {
         String result = null;
         String url = "http://web.juhe.cn:8080/finance/stock/hk";//请求接口地址
         Map params = new HashMap();//请求参数
@@ -105,7 +105,7 @@ public class JuHeDataManager {
     }
 
     //3.美国股市
-    public void getRequest3() {
+    public void getStockDetailForUSA() {
         String result = null;
         String url = "http://web.juhe.cn:8080/finance/stock/usa";//请求接口地址
         Map params = new HashMap();//请求参数
@@ -125,86 +125,24 @@ public class JuHeDataManager {
         }
     }
 
-    //4.香港股市列表
-    public void getRequest4() {
-        String result = null;
-        String url = "http://web.juhe.cn:8080/finance/stock/hkall";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", appKey);//您申请的APPKEY
-        params.put("page", "");//第几页,每页20条数据,默认第1页
-
-        try {
-            result = net(url, params, "GET");
-            JSONObject object = JSONObject.fromObject(result);
-            if (object.getInt("error_code") == 0) {
-                System.out.println(object.get("result"));
-            } else {
-                System.out.println(object.get("error_code") + ":" + object.get("reason"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    //5.美国股市列表
-    public void getRequest5() {
-        String result = null;
-        String url = "http://web.juhe.cn:8080/finance/stock/usaall";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", appKey);//您申请的APPKEY
-        params.put("page", "");//第几页,每页20条数据,默认第1页
-
-        try {
-            result = net(url, params, "GET");
-            JSONObject object = JSONObject.fromObject(result);
-            if (object.getInt("error_code") == 0) {
-                System.out.println(object.get("result"));
-            } else {
-                System.out.println(object.get("error_code") + ":" + object.get("reason"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    //6.深圳股市列表
-    public JuHeDataPageBean<JuHeDataStockInfoBean> getStockeInfoBeanForSZ(int pageNo){
-        String result = null;
-        String url = "http://web.juhe.cn:8080/finance/stock/szall";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", appKey);//您申请的APPKEY
-        params.put("page", "");//第几页(每页20条数据),默认第1页
-        try {
-            result = net(url, params, "GET");
-            JSONObject object = JSONObject.fromObject(result);
-            if (object.getInt("error_code") == 0) {
-                System.out.println(object.get("result"));
-            } else {
-                System.out.println(object.get("error_code") + ":" + object.get("reason"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    //7.沪股列表
-    public JuHeDataPageBean<JuHeDataStockInfoBean> getStockeInfoBeanForSH(int pageNo, StockMarket stockMarket){
+    public JuHeDataPageBean<JuHeDataStockInfoBean> getStockeInfoBean(int pageNo, StockMarket stockMarket) {
         String result = null;
         String url = "http://web.juhe.cn:8080/finance/stock/shall";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("key", appKey);//您申请的APPKEY
         params.put("page", "" + pageNo);//第几页,每页20条数据,默认第1页
         try {
-            result = net(stockMarket.getUrl(), params, "GET");
+            result = net(getStockListUrl(stockMarket), params, "GET");
             JSONObject object = JSONObject.fromObject(result);
             if (object.getInt("error_code") == 0) {
                 String jsonString = object.getJSONObject("result").toString();
+                System.out.println("pageNo:" + pageNo + ", \r\n jsonString:" + jsonString);
                 return JuHeDataPageBean.parserFromJsonString(jsonString, JuHeDataStockInfoBean.class);
             } else {
-                throw new QingQingRuntimeException("getStockInfoBeanForSH error, pageNo:" + pageNo + "errorCode:" + object.get("error_code") + ", errorMsg:" + object.get("reason"));
+                throw new QingQingRuntimeException("getStockeInfoBean error, stockMarket" + stockMarket + ", pageNo:" + pageNo + ", errorCode:" + object.get("error_code") + ", errorMsg:" + object.get("reason"));
             }
         } catch (Exception e) {
-            throw new QingQingRuntimeException("getStockInfoBeanForSH fail, pageNo:" + pageNo, e);
+            throw new QingQingRuntimeException("getStockeInfoBean fail, stockMarket" + stockMarket + ", pageNo:" + pageNo, e);
         }
     }
 
@@ -215,7 +153,7 @@ public class JuHeDataManager {
      * @return 网络请求字符串
      * @throws Exception
      */
-    public String net(String strUrl, Map params, String method) throws Exception {
+    private String net(String strUrl, Map params, String method) throws Exception {
         HttpURLConnection conn = null;
         BufferedReader reader = null;
         String rs = null;

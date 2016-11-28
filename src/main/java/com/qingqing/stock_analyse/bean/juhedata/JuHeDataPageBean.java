@@ -55,9 +55,8 @@ public class JuHeDataPageBean<T> {
         JSONObject pageBeanObject = JSONObject.fromObject(jsonString);
         pageBean.setNum(pageBeanObject.getString("num"));
         pageBean.setPage(pageBeanObject.getString("page"));
-        pageBean.setPage(pageBeanObject.getString("totalCount"));
+        pageBean.setTotalCount(pageBeanObject.getString("totalCount"));
         pageBean.setData(JsonUtil.parserJsonList(pageBeanObject.getString("data"), X));
         return pageBean;
-
     }
 }

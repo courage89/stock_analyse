@@ -1,6 +1,7 @@
 package com.qingqing.stock_analyse.manager;
 
 import com.qingqing.stock_analyse.TestBase;
+import com.qingqing.stock_analyse.domain.StockMarket;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +15,7 @@ public class StockAnalyseManagerTest extends TestBase{
     
     @Test
     public void testAnalyse(){
-        stockAnalyseManager.analyseSHStock();
+        stockAnalyseManager.analyseStock(StockMarket.ShangHai);
+        stockAnalyseManager.analyseStock(StockMarket.ShenZhen);
     }
 }

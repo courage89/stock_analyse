@@ -5,18 +5,25 @@ package com.qingqing.stock_analyse.domain;
  */
 public enum StockMarket {
 
-    ShangHai(1),
-    ShenZhen(2),
-    HongKong(3),
-    USA(4);
+    ShangHai(1, 1164),
+    ShenZhen(2, 1880),
+    HongKong(3, 200),
+    USA(4, 300);
 
     private int value;
+
+    private int count;
 
     public int getValue() {
         return value;
     }
 
-    private StockMarket(int value) {
+    public int getCount() {
+        return count;
+    }
+
+    private StockMarket(int value, int count) {
         this.value = value;
+        this.count = count;
     }
 }
