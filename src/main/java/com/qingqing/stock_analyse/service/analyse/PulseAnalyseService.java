@@ -8,17 +8,17 @@ import com.qingqing.stock_analyse.domain.result.StockPulseResult;
 public interface PulseAnalyseService {
 
 	/**
-	 * ²éÑ¯ËùÓĞÖ¸¶¨ÈÕÆÚµÄ·ûºÏÂö³åĞÍµÄ¹ÉÆ±ĞÅÏ¢
+	 * æŸ¥è¯¢æ‰€æœ‰æŒ‡å®šæ—¥æœŸçš„ç¬¦åˆè„‰å†²å‹çš„è‚¡ç¥¨ä¿¡æ¯
 	 */
 	Map<String, StockPulseResult> findAllPulseResult(Date date);
-	
+
 	/**
-	 * ·ÖÎöÖ¸¶¨ÈÕÆÚµÄËùÓĞ¹ÉÆ±£¬ÌôÑ¡³öËùÓĞ·ûºÏÂö³åĞÍµÄ¹ÉÆ±
+	 * åˆ†ææŒ‡å®šæ—¥æœŸçš„æ‰€æœ‰è‚¡ç¥¨ï¼ŒæŒ‘é€‰å‡ºæ‰€æœ‰ç¬¦åˆè„‰å†²å‹çš„è‚¡ç¥¨
 	 */
 	Map<String, StockPulseResult> analysePulseResult(Date date);
-	
+
 	/**
-	 * ·ÖÎöÖ¸¶¨ÈÕÆÚ£¬Ö¸¶¨´úÂëÇÒ·ûºÏÂö³åĞÍµÄ¹ÉÆ±£¬²éÑ¯ÆäÕÇÍ£²ßÂÔ£¬ÈôÎªÕÇÍ££¬Ôò·µ»Ønull
+	 * åˆ†ææŒ‡å®šæ—¥æœŸï¼ŒæŒ‡å®šä»£ç ä¸”ç¬¦åˆè„‰å†²å‹çš„è‚¡ç¥¨ï¼ŒæŸ¥è¯¢å…¶æ¶¨åœç­–ç•¥ï¼Œè‹¥ä¸ºæ¶¨åœï¼Œåˆ™è¿”å›null
 	 */
 	StockPulseResult analysePulseResult(Date date, String stockCode);
 }

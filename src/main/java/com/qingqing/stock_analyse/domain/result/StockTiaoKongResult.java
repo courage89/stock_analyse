@@ -2,17 +2,17 @@ package com.qingqing.stock_analyse.domain.result;
 
 
 /**
- * ×òÈÕÕÇÍ££¬½ñÌì×îµÍ¼Û¸ßÓÚ×òÌì×î¸ß¼Û
+ * æ˜¨æ—¥æ¶¨åœï¼Œä»Šå¤©æœ€ä½ä»·é«˜äºæ˜¨å¤©æœ€é«˜ä»·
  */
 public class StockTiaoKongResult extends BaseAnalyseResult{
 
 	/**
-	 * ½ñÌì×îµÍ¼Û
+	 * ä»Šå¤©æœ€ä½ä»·
 	 */
 	private Double currentMin;
-	
+
 	/**
-	 * ×òÌìÕÇÍ£¼Û
+	 * æ˜¨å¤©æ¶¨åœä»·
 	 */
 	private Double prevMax;
 

@@ -14,67 +14,67 @@ public class StockInfo {
     private Long id;
 
     /**
-     * ¹ÉÆ±´úÂë
+     * è‚¡ç¥¨ä»£ç 
      */
     private String stockCode;
 
     /**
-    * ¹ÉÆ±Ãû³Æ
-    */
+     * è‚¡ç¥¨ åç§°
+     */
     private String stockName;
 
     /**
-     * ¹ÉÆ±ÈÕÆÚ
+     * è‚¡ç¥¨æ—¥æœŸ
      */
     private Date date;
 
     /**
-     * ¿ªÅÌ¼Û
+     * å¼€ç›˜ä»·
      */
     private Double openPrice;
 
     /**
-     * ×î¸ß¼Û
+     * æœ€é«˜ä»·
      */
     private Double maxPrice;
 
     /**
-     * ×îµÍ¼Û
+     * æœ€ä½ä»·
      */
     private Double minPrice;
 
     /**
-     * ÊÕÅÌ¼Û
+     * æ”¶ç›˜ä»·
      */
     private Double closePrice;
 
     /**
-     * ÕÇ·ù
+     * æ¶¨å¹…
      */
     private Double increasePercent;
 
     /**
-     * Õñ·ù
+     * æŒ¯å¹…
      */
     private Double wavePercent;
 
     /**
-     * ×ÜÊÖ
+     * æ€»æ‰‹
      */
     private Long allCnt;
 
     /**
-     * ×Ü¼Û
+     * æ€»ä»·
      */
     private Double allPrice;
 
     /**
-     * »»ÊÖÂÊ
+     * æ¢æ‰‹ç‡
      */
     private Double exchangePercent;
 
     /**
-     * ³É½»
+     * æˆäº¤
      */
     private Integer dealCnt;
 

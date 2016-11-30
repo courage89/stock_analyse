@@ -4,7 +4,7 @@ package com.qingqing.stock_analyse.domain.result;
 public class StockYiZiBanResult extends BaseAnalyseResult {
 
 	/**
-	 * һ�ְ�ļ۸�
+	 * 当前价
 	 */
 	private Double price;
 	

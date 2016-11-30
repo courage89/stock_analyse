@@ -2,27 +2,27 @@ package com.qingqing.stock_analyse.domain.result;
 
 
 /**
- * ¿ªÅÌÊÕÅÌÕÇÍ££¬ ×îµÍ¼ÛµÍÓÚÕÇÍ£¼Û
+ * å¼€ç›˜æ”¶ç›˜æ¶¨åœï¼Œ æœ€ä½ä»·ä½äºæ¶¨åœä»·
  */
 public class StockTZiTypeResult extends BaseAnalyseResult{
 
 	/**
-	 * ½ñÈÕ×îµÍ¼Û
+	 * ä»Šæ—¥æœ€ä½ä»·
 	 */
 	private Double currentMin;
-	
+
 	/**
-	 * ½ñÈÕ×î¸ß¼Û
+	 * ä»Šæ—¥æœ€é«˜ä»·
 	 */
 	private Double currentMax;
 
 	/**
-	 * ×òÈÕ×î¸ß¼Û
+	 * æ˜¨æ—¥æœ€ä½ä»·
 	 */
 	private Double prevMax;
 
 	/**
-	 * ½ñÈÕ×îµÍ¼ÛÏà¶Ô×òÈÕ×î¸ß¼ÛµÄÕÇ·ù
+	 * ä»Šæ—¥æœ€ä½ä»·ç›¸å¯¹æ˜¨æ—¥æœ€é«˜ä»·çš„æ¶¨å¹…
 	 */
 	private Double minIncrPercent;
 

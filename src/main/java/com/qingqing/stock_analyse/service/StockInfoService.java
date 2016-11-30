@@ -8,12 +8,12 @@ import com.qingqing.stock_analyse.domain.StockInfo;
 public interface StockInfoService {
 
 	/**
-	 * ²éÑ¯Ö¸¶¨ÈÕÆÚ£¬Ö¸¶¨¹ÉÆ±µÄ»ù±¾ÕÇµøÇé¿ö
+	 * æŸ¥è¯¢æŒ‡å®šæ—¥æœŸï¼ŒæŒ‡å®šè‚¡ç¥¨çš„åŸºæœ¬æ¶¨è·Œæƒ…å†µ
 	 */
 	public StockInfo findByStockCodeAndDate(String stockCode, Date date);
-	
+
 	/**
-	 * ²éÑ¯Ö¸¶¨Ê±¼ä¶ÎÄÚ£¬Ö¸¶¨¹ÉÆ±µÄ»ù±¾ÕÇµøÇé¿ö£¬ °´Ê±¼äÅÅĞò
+	 * æŸ¥è¯¢æŒ‡å®šæ—¶é—´æ®µå†…ï¼ŒæŒ‡å®šè‚¡ç¥¨çš„åŸºæœ¬æ¶¨è·Œæƒ…å†µï¼Œ æŒ‰æ—¶é—´æ’åº
 	 */
 	public List<StockInfo> findByStockCodeAndTimeDuration(String stockCode, Date startDate, Date endDate);
 

@@ -2,23 +2,22 @@ package com.qingqing.stock_analyse.domain.result;
 
 
 /**
- * ×òÌìµø5%ÒÔÉÏ£¬ ½ñÌìÊÕÅÌ¼Û¸ßÓÚ×òÌì¿ªÅÌ¼Û
- * £¨Ñô°üÒõ£¬ ×Ï½ğ¿óÒµ601899£¬ 2015.9.16£©
+ * æ˜¨å¤©è·Œ5%ä»¥ä¸Šï¼Œ ä»Šå¤©æ”¶ç›˜ä»·é«˜äºæ˜¨å¤©å¼€ç›˜ä»·
+ * ï¼ˆé˜³åŒ…é˜´ï¼Œ ç´«é‡‘çŸ¿ä¸š601899ï¼Œ 2015.9.16ï¼‰
  */
 public class StockYangBaoYinResult extends BaseAnalyseResult{
 
 	/**
-	 * ×òÈÕÕÇ·ù
+	 * æ˜¨æ—¥æ¶¨å¹…
 	 */
 	private Double yesterdayIncreasePercent;
-	
 	/**
-	 * ½ñÈÕÕÇ·ù
+	 * ä»Šæ—¥æ¶¨å¹…
 	 */
 	private Double todayIncreasePercent;
-	
+
 	/**
-	 * ½ñÈÕÊÕÅÌ¼ÛÏà¶ÔÓÚ×òÈÕ¿ªÅÌ¼ÛµÄÕÇ·ù
+	 * ä»Šæ—¥æ”¶ç›˜ä»·ç›¸å¯¹äºæ˜¨æ—¥å¼€ç›˜ä»·çš„æ¶¨å¹…
 	 */
 	private Double startEndIncreasePercent;
 

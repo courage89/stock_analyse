@@ -8,17 +8,17 @@ import com.qingqing.stock_analyse.domain.result.StockTZiTypeResult;
 public interface TZiTypeAnalyseService {
 
 	/**
-	 * ²éÑ¯ËùÓĞÖ¸¶¨ÈÕÆÚµÄ·ûºÏT×ÖĞÍµÄ¹ÉÆ±ĞÅÏ¢
+	 * æŸ¥è¯¢æ‰€æœ‰æŒ‡å®šæ—¥æœŸçš„ç¬¦åˆTå­—å‹çš„è‚¡ç¥¨ä¿¡æ¯
 	 */
 	Map<String, StockTZiTypeResult> findAllTZiTypeResult(Date date);
-	
+
 	/**
-	 * ·ÖÎöÖ¸¶¨ÈÕÆÚµÄËùÓĞ¹ÉÆ±£¬ÌôÑ¡³öËùÓĞ·ûºÏT×ÖĞÍµÄ¹ÉÆ±
+	 * åˆ†ææŒ‡å®šæ—¥æœŸçš„æ‰€æœ‰è‚¡ç¥¨ï¼ŒæŒ‘é€‰å‡ºæ‰€æœ‰ç¬¦åˆTå­—å‹çš„è‚¡ç¥¨
 	 */
 	Map<String, StockTZiTypeResult> analyseTZiTypeResult(Date date);
-	
+
 	/**
-	 * ·ÖÎöÖ¸¶¨ÈÕÆÚ£¬Ö¸¶¨´úÂëÇÒ·ûºÏT×ÖĞÍµÄ¹ÉÆ±£¬²éÑ¯ÆäÕÇÍ£²ßÂÔ£¬ÈôÎªÕÇÍ££¬Ôò·µ»Ønull
+	 * åˆ†ææŒ‡å®šæ—¥æœŸï¼ŒæŒ‡å®šä»£ç ä¸”ç¬¦åˆTå­—å‹çš„è‚¡ç¥¨ï¼ŒæŸ¥è¯¢å…¶æ¶¨åœç­–ç•¥ï¼Œè‹¥ä¸ºæ¶¨åœï¼Œåˆ™è¿”å›null
 	 */
 	StockTZiTypeResult analyseTZiTypeResult(Date date, String stockCode);
 }

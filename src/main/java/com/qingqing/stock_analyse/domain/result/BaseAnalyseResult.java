@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * »ù±¾·ÖÎö½á¹û¶ÔÏó£¬ÓÃÓÚºóĞøÍ³¼Æ
+ * åŸºæœ¬åˆ†æç»“æœå¯¹è±¡ï¼Œç”¨äºåç»­ç»Ÿè®¡
  */
 public class BaseAnalyseResult {
 

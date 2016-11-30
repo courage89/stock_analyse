@@ -2,17 +2,17 @@ package com.qingqing.stock_analyse.domain.result;
 
 
 /**
- * ×òÈÕÕÇÍ££¬½ñÈÕÕÇÍ£
+ * æ˜¨æ—¥æ¶¨åœï¼Œä»Šæ—¥æ¶¨åœ
  */
 public class DoubleIncreaseToCeilResult extends BaseAnalyseResult{
 
 	/**
-	 * ×òÈÕÕÇÍ£¼Û
+	 * æ˜¨æ—¥æ¶¨åœä»·
 	 */
 	private Double yesterdayCeilPrice;
-	
+
 	/**
-	 * ÕÇÍ£¼Û
+	 * æ¶¨åœä»·
 	 */
 	private Double todayCeilPrice;
 
