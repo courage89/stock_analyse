@@ -36,5 +36,6 @@ public class StockAnalyseManager {
                 logger.warn("analyse stock error, stockMarket:" + stockMarket + "date:" + stockDate, ex);
             }
         }
+        logger.info("finished ananlyse stock, stockDate:{}, stockMarket:{}", stockDate, stockMarket);
     }
 }

@@ -136,7 +136,7 @@ public class JuHeDataManager {
             JSONObject object = JSONObject.fromObject(result);
             if (object.getInt("error_code") == 0) {
                 String jsonString = object.getJSONObject("result").toString();
-                System.out.println("pageNo:" + pageNo + ", \r\n jsonString:" + jsonString);
+                logger.debug("getStockeInfoBean pageNo:{}, result:{}", pageNo, jsonString);
                 return JuHeDataPageBean.parserFromJsonString(jsonString, JuHeDataStockInfoBean.class);
             } else {
                 throw new QingQingRuntimeException("getStockeInfoBean error, stockMarket" + stockMarket + ", pageNo:" + pageNo + ", errorCode:" + object.get("error_code") + ", errorMsg:" + object.get("reason"));
