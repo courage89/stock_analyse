@@ -3,6 +3,7 @@ package com.qingqing.stock_analyse.dao.impl;
 import com.qingqing.stock_analyse.TestBase;
 import com.qingqing.stock_analyse.dao.analyse.StockInfoMapper;
 import com.qingqing.stock_analyse.domain.StockInfo;
+import com.qingqing.stock_analyse.domain.StockMarket;
 import com.qingqing.stock_analyse.util.UnitTestEqualsUtil;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,6 +31,7 @@ public class StockInfoMapperTest extends TestBase {
     private Double maxPrice = 15.23d;
     private Double minPrice = 16.23d;
     private Double openPrice = 17.23d;
+    private StockMarket stockMarket = StockMarket.ShenZhen;
 
     @Autowired
     private StockInfoMapper stockInfoMapper;
@@ -57,6 +59,7 @@ public class StockInfoMapperTest extends TestBase {
         stockInfo.setMaxPrice(maxPrice);
         stockInfo.setMinPrice(minPrice);
         stockInfo.setOpenPrice(openPrice);
+        stockInfo.setStockMarket(stockMarket);
         return stockInfo;
     }
 }

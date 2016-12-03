@@ -12,10 +12,18 @@ public class StockAnalyseManagerTest extends TestBase{
     
     @Autowired
     private StockAnalyseManager stockAnalyseManager;
+
+    @Autowired
+    private JuHeDataManager juHeDataManager;
     
     @Test
     public void testAnalyse(){
         stockAnalyseManager.analyseStock(StockMarket.ShangHai);
         stockAnalyseManager.analyseStock(StockMarket.ShenZhen);
+    }
+
+    @Test
+    public void testGetStockDetail() {
+        juHeDataManager.getStockDetailForHS("600000", StockMarket.ShangHai);
     }
 }

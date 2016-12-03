@@ -40,6 +40,7 @@
 
     <bean id="sqlSaSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="qq_sa"/>
+        <property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

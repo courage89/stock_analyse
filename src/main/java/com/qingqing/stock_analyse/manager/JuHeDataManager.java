@@ -64,12 +64,11 @@ public class JuHeDataManager {
         }
     }
 
-    public void getStockDetailForHS(StockMarket stockMarket) {
+    public void getStockDetailForHS(String stockCode, StockMarket stockMarket) {
         String result = null;
         Map params = new HashMap();//请求参数
-        params.put("gid", "");//股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009
+        params.put("gid", stockMarket.getPrefix() + stockCode);//股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009
         params.put("key", appKey);//APP Key
-
         try {
             result = net(getStockDetailUrl(stockMarket), params, "GET");
             JSONObject object = JSONObject.fromObject(result);

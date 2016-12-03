@@ -78,6 +78,11 @@ public class StockInfo {
      */
     private Integer dealCnt;
 
+    /**
+    * 股市类型
+    */
+    private StockMarket stockMarket;
+
     private Date createTime;
 
     private Timestamp lastUpdateTime;
@@ -208,6 +213,14 @@ public class StockInfo {
 
     public void setStockName(String stockName) {
         this.stockName = stockName;
+    }
+
+    public StockMarket getStockMarket() {
+        return stockMarket;
+    }
+
+    public void setStockMarket(StockMarket stockMarket) {
+        this.stockMarket = stockMarket;
     }
 
     public static boolean isIncreaseToCeil(StockInfo stockInfo) {

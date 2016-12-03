@@ -13,7 +13,6 @@ public class StockDateUtil {
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-		//9 表示最长的黄金周假期+周六、周日
 		for(int i=0; i<9; i++){
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 			if(Calendar.SATURDAY == cal.get(Calendar.DAY_OF_WEEK) ||
@@ -28,7 +27,7 @@ public class StockDateUtil {
 	}
 	
 	private static boolean isHoliday(Date time) {
-		// TODO 待实现
+		// TODO
 		return false;
 	}
 

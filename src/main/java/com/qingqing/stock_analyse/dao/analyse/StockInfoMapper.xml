@@ -5,6 +5,7 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="stock_code" property="stockCode" jdbcType="VARCHAR"/>
         <result column="stock_name" property="stockName" jdbcType="VARCHAR"/>
+        <result column="stock_market" property="stockMarket" javaType="StockMarket"/>
         <result column="date" property="date" jdbcType="DATE"/>
         <result column="open_price" property="openPrice" jdbcType="DOUBLE"/>
         <result column="max_price" property="maxPrice" jdbcType="DOUBLE"/>
@@ -21,7 +22,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-    id, stock_code, stock_name, date, open_price, max_price, min_price, close_price, incr_percent,
+    id, stock_code, stock_name, stock_market, date, open_price, max_price, min_price, close_price, incr_percent,
     wave_percent, all_price, exchange_percent, all_cnt, deal_cnt, is_deleted, create_time,
     last_update_time
   </sql>
@@ -31,6 +32,7 @@
         insert ignore into t_stock_info (
         stock_code,
         stock_name,
+        stock_market,
         date,
         open_price,
         max_price,
@@ -49,6 +51,7 @@
             (
             #{stockCode,jdbcType=VARCHAR},
             #{stockName,jdbcType=VARCHAR},
+            #{stockMarket,javaType=StockMarket},
             #{date,jdbcType=DATE},
             #{openPrice,jdbcType=DOUBLE},
             #{maxPrice,jdbcType=DOUBLE},
@@ -67,6 +70,7 @@
         insert ignore into t_stock_info (
         stock_code,
         stock_name,
+        stock_market,
         date,
         open_price,
         max_price,
@@ -85,6 +89,7 @@
         <foreach item="stockInfo" index="index" collection="stockInfos" open="" separator="," close="">
             (#{stockInfo.stockCode,jdbcType=VARCHAR},
             #{stockInfo.stockName,jdbcType=VARCHAR},
+            #{stockInfo.stockMarket,javaType=StockMarket},
             #{stockInfo.date,jdbcType=DATE},
             #{stockInfo.openPrice,jdbcType=DOUBLE},
             #{stockInfo.maxPrice,jdbcType=DOUBLE},

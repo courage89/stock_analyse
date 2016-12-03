@@ -1,5 +1,6 @@
 package com.qingqing.stock_analyse.bean.juhedata;
 
+import com.qingqing.stock_analyse.domain.StockMarket;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**

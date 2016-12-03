@@ -30,7 +30,7 @@ public class StockAnalyseManager {
         for (int pageNo = 0; pageNo < pageCnt; ++pageNo) {
             try {
                 JuHeDataPageBean<JuHeDataStockInfoBean> pageBean = juHeDataManager.getStockeInfoBean(pageNo, stockMarket);
-                List<StockInfo> stockInfos = JuHeDataConverter.convertJuHeDataBeanToStockInfo(pageBean, stockDate);
+                List<StockInfo> stockInfos = JuHeDataConverter.convertJuHeDataBeanToStockInfo(pageBean, stockDate, stockMarket);
                 stockInfoService.insertStockInfo(stockInfos);
             } catch (Exception ex) {
                 logger.warn("analyse stock error, stockMarket:" + stockMarket + "date:" + stockDate, ex);
