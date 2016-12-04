@@ -1,10 +1,21 @@
 package com.qingqing.stock_analyse.util;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class StockDateUtil {
+
+	public static final String DATE_TO_YEAR_MONTH_DAY = "yyyy-MM-dd";
+
+	public static final Date getDate(int year, int month, int day) {
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.set(year, month, day);
+		return calendar.getTime();
+	}
 
 	public static final Date findLastOpenMarketkDay(Date today){
 		Calendar cal = Calendar.getInstance();
@@ -39,6 +50,26 @@ public class StockDateUtil {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		return new Timestamp(cal.getTimeInMillis());
+	}
+
+
+	public static Date stringToDate(String dateStr) {
+		Date date = null;
+		SimpleDateFormat shortDateFormat = new SimpleDateFormat(DATE_TO_YEAR_MONTH_DAY);
+		try {
+			date = shortDateFormat.parse(dateStr);
+		} catch (ParseException e) {
+			return null;
+		}
+		return date;
+	}
+
+	public static String dateToString(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_TO_YEAR_MONTH_DAY);
+		if (date == null) {
+			return "";
+		}
+		return sdf.format(date);
 	}
 
 	public static void main(String[] args) {

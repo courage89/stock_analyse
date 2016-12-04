@@ -9,7 +9,7 @@ import java.util.List;
 public interface StockTiaoKongResultMapper {
     int insertIgnore(StockTiaoKongResult record);
 
-    StockTiaoKongResult selectByPrimaryKey(Integer id);
+    StockTiaoKongResult selectByPrimaryKey(Long id);
 
     List<StockTiaoKongResult> findAllByDate(Date date);
 }

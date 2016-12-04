@@ -8,7 +8,7 @@ import java.util.List;
 public interface StockPulseResultMapper {
     int insertIgnore(StockPulseResult record);
 
-    StockPulseResult selectByPrimaryKey(Integer id);
+    StockPulseResult selectByPrimaryKey(Long id);
 
     List<StockPulseResult> findAllByDate(Date date);
 }

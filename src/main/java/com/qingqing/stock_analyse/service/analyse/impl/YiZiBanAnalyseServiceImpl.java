@@ -8,6 +8,8 @@ import com.qingqing.stock_analyse.domain.result.StockYiZiBanResult;
 import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.YiZiBanAnalyseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ public class YiZiBanAnalyseServiceImpl implements YiZiBanAnalyseService {
     @Autowired
     private StockYiZiBanResultMapper stockYiZiBanResultMapper;
 
+    public static final Logger logger = LoggerFactory.getLogger(YiZiBanAnalyseServiceImpl.class);
+    
     @Override
     public Map<String, StockYiZiBanResult> findAllYiZiBanResult(Date date) {
         List<StockYiZiBanResult> list = stockYiZiBanResultMapper.findAllByDate(date);
@@ -37,21 +41,22 @@ public class YiZiBanAnalyseServiceImpl implements YiZiBanAnalyseService {
     }
 
     @Override
-    public Map<String, StockYiZiBanResult> analyseYiZiBanResult(Date date) {
+    public void analyseYiZiBanResult(Date date) {
         List<String> stockCodes = stockCodeService.findAllStockCodes();
         Map<String, StockYiZiBanResult> map = new HashMap<String, StockYiZiBanResult>();
         for (String stockCode : stockCodes) {
-            StockYiZiBanResult result = analyseYiZiBanResult(date, stockCode);
-            if (result != null) {
-                map.put(stockCode, result);
+            try {
+                StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
+                analyseYiZiBanResult(date, stockInfo);
+            } catch (Exception e) {
+                logger.warn("analyseYiZiBan fail, date:{}, stockCode:{}, ex:{}", date, stockCode, e);
             }
         }
-        return map;
     }
 
     @Override
-    public StockYiZiBanResult analyseYiZiBanResult(Date date, String stockCode) {
-        StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
+    public StockYiZiBanResult analyseYiZiBanResult(Date date, StockInfo stockInfo) {
+        String stockCode = stockInfo.getStockCode();
         double openPrice = stockInfo.getOpenPrice();
         double closePrice = stockInfo.getClosePrice();
         double maxPrice = stockInfo.getMaxPrice();
@@ -61,13 +66,12 @@ public class YiZiBanAnalyseServiceImpl implements YiZiBanAnalyseService {
                 && DoubleCompareUtil.equals(openPrice, closePrice)
                 && DoubleCompareUtil.equals(maxPrice, minPrice)
                 && DoubleCompareUtil.equals(openPrice, maxPrice)) {
-
             StockYiZiBanResult result = new StockYiZiBanResult();
+            result.setPrice(maxPrice);
+            result.setStockCode(stockCode);
             result.setDate(stockInfo.getDate());
             result.setNextDayIncreasePercent(null);
             result.setNextWeekIncreasePercent(null);
-            result.setStockCode(stockCode);
-
             stockYiZiBanResultMapper.insertIgnore(result);
             return result;
         }

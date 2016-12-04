@@ -23,8 +23,15 @@ public class StockInfoImportController {
 
     @RequestMapping("from_juhe_data")
     public void importFromJuHeData(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
-        stockAnalyseManager.analyseStock(StockMarket.ShangHai);
-        stockAnalyseManager.analyseStock(StockMarket.ShenZhen);
+        stockAnalyseManager.saveStockInfo(StockMarket.ShangHai);
+        stockAnalyseManager.saveStockInfo(StockMarket.ShenZhen);
+        httpServletResponse.setStatus(HttpStatus.OK.value());
+        httpServletResponse.getWriter().write("success");
+    }
+
+    @RequestMapping("do_analyse")
+    public void doAnalyse(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        stockAnalyseManager.analyseStock();
         httpServletResponse.setStatus(HttpStatus.OK.value());
         httpServletResponse.getWriter().write("success");
     }

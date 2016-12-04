@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qingqing.stock_analyse.dao.analyse.StockYiZiBanResultMapper" >
-  <resultMap id="BaseResultMap" type="com.qingqing.stock_analyse.domain.result.StockYiZiBanResult" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
-    <result column="date" property="date" jdbcType="DATE" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
+<mapper namespace="com.qingqing.stock_analyse.dao.analyse.StockYiZiBanResultMapper">
+    <resultMap id="BaseResultMap" type="com.qingqing.stock_analyse.domain.result.StockYiZiBanResult">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="stock_code" property="stockCode" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="DATE"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
-  <sql id="Base_Column_List">
-    id, stock_code, date, price, is_deleted, create_time, last_update_time
+    <sql id="Base_Column_List">
+    id, stock_code, date, price, create_time, last_update_time
   </sql>
 
-  <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
-          parameterType="com.qingqing.stock_analyse.domain.result.StockYiZiBanResult" >
-    insert ignore into t_trade_yzi (id, stock_code, date,
-      price, is_deleted, create_time, 
-      last_update_time)
-    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
-      #{price,jdbcType=DOUBLE}, #{isDeleted,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{lastUpdateTime,jdbcType=TIMESTAMP})
+    <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+            parameterType="com.qingqing.stock_analyse.domain.result.StockYiZiBanResult">
+    insert ignore into t_trade_yzi (
+      stock_code,
+      date,
+      price,
+      is_deleted,
+      create_time
+      )
+    values (
+      #{stockCode,jdbcType=VARCHAR},
+      #{date,jdbcType=DATE},
+      #{price,jdbcType=DOUBLE},
+      0,
+      now())
   </insert>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List"></include>
-    from t_trade_yzi
-    where id = #{id,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_trade_yzi
+        where id = #{id,jdbcType=INTEGER}
+    </select>
 
-  <select id="findAllByDate" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from t_trade_yzi
-    where date = #{date, jdbcType=DATE}
-  </select>
+    <select id="findAllByDate" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_trade_yzi
+        where date = #{date, jdbcType=DATE}
+    </select>
 </mapper>

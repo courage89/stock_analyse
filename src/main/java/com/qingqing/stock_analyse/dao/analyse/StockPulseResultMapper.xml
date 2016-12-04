@@ -13,32 +13,42 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, stock_code, date, open_incr, close_incr, max_incr, is_deleted, create_time, last_update_time
+    id, stock_code, date, open_incr, close_incr, max_incr, create_time, last_update_time
   </sql>
 
   <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
            parameterType="com.qingqing.stock_analyse.domain.result.StockPulseResult" >
-    insert ignore into t_pulse_trade (id, stock_code, date,
-      open_incr, close_incr, max_incr, 
-      is_deleted, create_time
+    insert ignore into t_trade_pulse (
+      stock_code,
+      date,
+      open_incr,
+      close_incr,
+      max_incr,
+      is_deleted,
+      create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=INTEGER}, #{date,jdbcType=DATE}, 
-      #{openIncreasePercent,jdbcType=DOUBLE}, #{closeIncreasePercent,jdbcType=DOUBLE}, #{maxIncreasePercent,jdbcType=DOUBLE}, 
-      0, now()
+    values (
+      #{stockCode,jdbcType=INTEGER},
+      #{date,jdbcType=DATE},
+      #{openIncreasePercent,jdbcType=DOUBLE},
+      #{closeIncreasePercent,jdbcType=DOUBLE},
+      #{maxIncreasePercent,jdbcType=DOUBLE},
+      0,
+      now()
       )
   </insert>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid = "Base_Column_List"></include>
-    from t_pulse_trade
+    from t_trade_pulse
     where id = #{id,jdbcType=INTEGER}
   </select>
 
   <select id="findAllByDate" resultMap="BaseResultMap">
     select
     <include refid= "Base_Column_List"></include>
-    from t_pulse_trade
+    from t_trade_pulse
     where
     date = #{date,jdbcType=DATE}
   </select>

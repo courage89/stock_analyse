@@ -3,6 +3,7 @@ package com.qingqing.stock_analyse.service.analyse;
 import java.util.Date;
 import java.util.Map;
 
+import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockTiaoKongResult;
 
 public interface TiaoKongAnalyseService {
@@ -15,10 +16,10 @@ public interface TiaoKongAnalyseService {
 	/**
 	 * 分析指定日期的所有股票，挑选出所有涨停的股票
 	 */
-	Map<String, StockTiaoKongResult> analyseTiaoKongResult(Date date);
+	void analyseTiaoKongResult(Date date);
 
 	/**
 	 * 分析指定日期，指定代码的股票，查询其涨停策略，若为涨停，则返回null
 	 */
-	StockTiaoKongResult analyseTiaoKongResult(Date date, String stockCode);
+	public StockTiaoKongResult analyseTiaoKongResult(Date date, StockInfo stockInfo, StockInfo prevStockInfo);
 }

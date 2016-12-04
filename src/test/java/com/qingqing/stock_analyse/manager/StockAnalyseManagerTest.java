@@ -18,8 +18,8 @@ public class StockAnalyseManagerTest extends TestBase{
     
     @Test
     public void testAnalyse(){
-        stockAnalyseManager.analyseStock(StockMarket.ShangHai);
-        stockAnalyseManager.analyseStock(StockMarket.ShenZhen);
+        stockAnalyseManager.saveStockInfo(StockMarket.ShangHai);
+        stockAnalyseManager.saveStockInfo(StockMarket.ShenZhen);
     }
 
     @Test

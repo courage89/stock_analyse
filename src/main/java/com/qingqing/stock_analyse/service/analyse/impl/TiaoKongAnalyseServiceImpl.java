@@ -8,6 +8,8 @@ import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.TiaoKongAnalyseService;
 import com.qingqing.stock_analyse.util.StockDateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ public class TiaoKongAnalyseServiceImpl implements TiaoKongAnalyseService {
     private StockInfoService stockInfoService;
     @Autowired
     private StockTiaoKongResultMapper stockTiaoKongResultMapper;
+    
+    public static final Logger logger = LoggerFactory.getLogger(TiaoKongAnalyseServiceImpl.class);
 
     @Override
     public Map<String, StockTiaoKongResult> findAllTiaoKongResult(Date date) {
@@ -37,27 +41,28 @@ public class TiaoKongAnalyseServiceImpl implements TiaoKongAnalyseService {
     }
 
     @Override
-    public Map<String, StockTiaoKongResult> analyseTiaoKongResult(Date date) {
+    public void analyseTiaoKongResult(Date date) {
         List<String> stockCodes = stockCodeService.findAllStockCodes();
         Map<String, StockTiaoKongResult> map = new HashMap<String, StockTiaoKongResult>();
         for (String stockCode : stockCodes) {
-            StockTiaoKongResult result = analyseTiaoKongResult(date, stockCode);
-            if (result != null) {
-                map.put(stockCode, result);
+            try {
+                Date prevDate = StockDateUtil.findLastOpenMarketkDay(date);
+                StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
+                StockInfo prevStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, prevDate);
+                analyseTiaoKongResult(date, stockInfo, prevStockInfo);
+            } catch (Exception e) {
+                logger.warn("analyseTiaoKongResult fail, date:{}, stockCode:{}, ex:{}", date, stockCode, e);
             }
         }
-        return map;
     }
 
     @Override
-    public StockTiaoKongResult analyseTiaoKongResult(Date date, String stockCode) {
-
-        StockInfo lastStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
-        if (lastStockInfo != null && StockInfo.isIncreaseToCeil(lastStockInfo)) {
-            StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
-            if (stockInfo != null && DoubleCompareUtil.gt(stockInfo.getMinPrice(), lastStockInfo.getMaxPrice())) {
+    public StockTiaoKongResult analyseTiaoKongResult(Date date, StockInfo stockInfo, StockInfo prevStockInfo){
+        String stockCode = stockInfo.getStockCode();
+        if (prevStockInfo != null && StockInfo.isIncreaseToCeil(prevStockInfo)) {
+            if (stockInfo != null && DoubleCompareUtil.gt(stockInfo.getMinPrice(), prevStockInfo.getMaxPrice())) {
                 StockTiaoKongResult result = new StockTiaoKongResult();
-                result.setPrevMax(lastStockInfo.getMaxPrice());
+                result.setPrevMax(prevStockInfo.getMaxPrice());
                 result.setDate(date);
                 result.setCreateTime(new Date());
                 result.setCurrentMin(stockInfo.getMinPrice());

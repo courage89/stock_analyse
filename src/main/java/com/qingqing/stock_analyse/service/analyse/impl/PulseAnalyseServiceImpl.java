@@ -10,6 +10,8 @@ import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.PulseAnalyseService;
 import com.qingqing.stock_analyse.util.StockDateUtil;
 import com.qingqing.stock_analyse.util.StockPriceUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,8 @@ public class PulseAnalyseServiceImpl implements PulseAnalyseService {
     @Autowired
     private StockPulseResultMapper stockPulseResultMapper;
 
+    public static final Logger logger = LoggerFactory.getLogger(PulseAnalyseServiceImpl.class);
+
     @Override
     public Map<String, StockPulseResult> findAllPulseResult(Date date) {
         List<StockPulseResult> list = stockPulseResultMapper.findAllByDate(date);
@@ -39,26 +43,28 @@ public class PulseAnalyseServiceImpl implements PulseAnalyseService {
     }
 
     @Override
-    public Map<String, StockPulseResult> analysePulseResult(Date date) {
+    public void analysePulseResult(Date date) {
         List<String> stockCodes = stockCodeService.findAllStockCodes();
         Map<String, StockPulseResult> map = new HashMap<String, StockPulseResult>();
         for (String stockCode : stockCodes) {
-            StockPulseResult result = analysePulseResult(date, stockCode);
-            if (result != null) {
-                map.put(stockCode, result);
+            try {
+                Date prevDate = StockDateUtil.findLastOpenMarketkDay(date);
+                StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
+                StockInfo prevStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, prevDate);
+                analysePulseResult(date, stockInfo, prevStockInfo);
+            } catch (Exception e) {
+                logger.warn("analyse pulse result fail, date:{}, stockCode:{}, ex:{}", date, stockCode, e);
             }
         }
-        return map;
     }
 
     @Override
-    public StockPulseResult analysePulseResult(Date date, String stockCode) {
-        StockInfo lastStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, StockDateUtil.findLastOpenMarketkDay(date));
-        StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
-        if (lastStockInfo != null && lastStockInfo != null) {
-            Double openIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getOpenPrice());
-            Double closeIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getClosePrice());
-            Double maxIncreasePercent = StockPriceUtil.getIncreasePercent(lastStockInfo.getClosePrice(), stockInfo.getMaxPrice());
+    public StockPulseResult analysePulseResult(Date date, StockInfo stockInfo, StockInfo prevStockInfo) {
+        String stockCode = stockInfo.getStockCode();
+        if (prevStockInfo != null && prevStockInfo != null) {
+            Double openIncreasePercent = StockPriceUtil.getIncreasePercent(prevStockInfo.getClosePrice(), stockInfo.getOpenPrice());
+            Double closeIncreasePercent = StockPriceUtil.getIncreasePercent(prevStockInfo.getClosePrice(), stockInfo.getClosePrice());
+            Double maxIncreasePercent = StockPriceUtil.getIncreasePercent(prevStockInfo.getClosePrice(), stockInfo.getMaxPrice());
 
             if (DoubleCompareUtil.lt(openIncreasePercent, StockAnalyseConstants.OPEN_PRICE_INCREASE_PERCENT_LIMIT_IN_PULSE)
                     && DoubleCompareUtil.lt(closeIncreasePercent, StockAnalyseConstants.CLOSE_PRICE_INCREASE_PERCENT_LIMIT_IN_PULSE)

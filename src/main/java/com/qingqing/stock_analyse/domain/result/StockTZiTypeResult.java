@@ -17,7 +17,7 @@ public class StockTZiTypeResult extends BaseAnalyseResult{
 	private Double currentMax;
 
 	/**
-	 * 昨日最低价
+	 * 昨日最高价
 	 */
 	private Double prevMax;
 

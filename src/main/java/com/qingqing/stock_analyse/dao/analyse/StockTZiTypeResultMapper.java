@@ -9,7 +9,7 @@ import java.util.List;
 public interface StockTZiTypeResultMapper {
     int insertIgnore(StockTZiTypeResult record);
 
-    StockTZiTypeResult selectByPrimaryKey(Integer id);
+    StockTZiTypeResult selectByPrimaryKey(Long id);
 
     List<StockTZiTypeResult> findAllByDate(Date date);
 

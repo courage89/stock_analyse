@@ -12,17 +12,26 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, stock_code, date, prev_max, current_min, is_deleted, create_time, last_update_time
+    id, stock_code, date, prev_max, current_min, create_time, last_update_time
   </sql>
 
   <insert id="insertIgnore" useGeneratedKeys="true" keyProperty="id"  keyColumn="id"
           parameterType="com.qingqing.stock_analyse.domain.result.StockTiaoKongResult" >
-    insert ignore into t_trade_tiaokong (id, stock_code, date,
-      prev_max, current_min, is_deleted, 
-      create_time, last_update_time)
-    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
-      #{prevMax,jdbcType=DOUBLE}, #{currentMin,jdbcType=DOUBLE}, #{isDeleted,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+    insert ignore into t_trade_tiaokong (
+      stock_code,
+      date,
+      prev_max,
+      current_min,
+      is_deleted,
+      create_time
+      )
+    values (
+      #{stockCode,jdbcType=VARCHAR},
+      #{date,jdbcType=DATE},
+      #{prevMax,jdbcType=DOUBLE},
+      #{currentMin,jdbcType=DOUBLE},
+       0,
+      now())
   </insert>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -35,6 +44,7 @@
   <select id="findAllByDate" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List"></include>
+    from t_trade_tiaokong
     where date = #{date, jdbcType=DATE}
   </select>
 </mapper>

@@ -9,7 +9,7 @@ public interface StockYiZiBanResultMapper {
 
     int insertIgnore(StockYiZiBanResult record);
 
-    StockYiZiBanResult selectByPrimaryKey(Integer id);
+    StockYiZiBanResult selectByPrimaryKey(Long id);
 
     List<StockYiZiBanResult> findAllByDate(Date date);
 }
