@@ -226,4 +226,11 @@ public class StockInfo {
     public static boolean isIncreaseToCeil(StockInfo stockInfo) {
         return DoubleCompareUtil.gt(stockInfo.getIncreasePercent(), StockAnalyseConstants.INCEASE_TO_CEIL_PERCENT_LIMIT);
     }
+
+    public static final boolean isValid(StockInfo stockInfo) {
+        return DoubleCompareUtil.gtZero(stockInfo.getMaxPrice())
+                && DoubleCompareUtil.gtZero(stockInfo.getMinPrice())
+                && DoubleCompareUtil.gtZero(stockInfo.getOpenPrice())
+                && DoubleCompareUtil.gtZero(stockInfo.getClosePrice());
+    }
 }

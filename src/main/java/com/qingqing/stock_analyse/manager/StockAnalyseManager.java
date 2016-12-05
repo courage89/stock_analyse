@@ -7,7 +7,6 @@ import com.qingqing.stock_analyse.converter.juhedata.JuHeDataConverter;
 import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.StockMarket;
 import com.qingqing.stock_analyse.domain.result.StockPulseResult;
-import com.qingqing.stock_analyse.domain.result.StockYiZiBanResult;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.StockInfoService;
 import com.qingqing.stock_analyse.service.analyse.PulseAnalyseService;
@@ -44,7 +43,7 @@ public class StockAnalyseManager {
     public static final Logger logger = LoggerFactory.getLogger(StockAnalyseManager.class);
     
     public void saveStockInfo(StockMarket stockMarket) {
-        Date stockDate = StockDateUtil.findLastOpenMarketkDay(new Date());
+        Date stockDate = StockDateUtil.findLastestOpenMarketkDay(new Date());
         int pageCnt = stockMarket.getCount() / StockAnalyseConstants.STOCK_CNT_PER_REQUEST;
         for (int pageNo = 0; pageNo < pageCnt; ++pageNo) {
             try {
@@ -59,7 +58,7 @@ public class StockAnalyseManager {
     }
 
     public void analysePulseStock() {
-        Date stockDate = StockDateUtil.findLastOpenMarketkDay(new Date());
+        Date stockDate = StockDateUtil.findLastestOpenMarketkDay(new Date());
         pulseAnalyseService.analysePulseResult(stockDate);
         yiZiBanAnalyseService.analyseYiZiBanResult(stockDate);
         tZiTypeAnalyseService.analyseTZiTypeResult(stockDate);
@@ -67,20 +66,25 @@ public class StockAnalyseManager {
     }
 
     public void analyseStock(){
-        Date stockDate = StockDateUtil.findLastOpenMarketkDay(new Date());
+        Date stockDate = StockDateUtil.findLastestOpenMarketkDay(new Date());
         List<String> stockCodes = stockCodeService.findAllStockCodes();
         Map<String, StockPulseResult> map = new HashMap<String, StockPulseResult>();
         for (String stockCode : stockCodes) {
             try {
-                Date prevDate = StockDateUtil.findLastOpenMarketkDay(stockDate);
+                Date prevDate = StockDateUtil.findLastestOpenMarketkDayExceptToday(stockDate);
                 StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, stockDate);
                 StockInfo prevStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, prevDate);
+                if (!StockInfo.isValid(stockInfo) || !StockInfo.isValid(prevStockInfo)) {
+                    logger.warn("stock is invalid, stockCode:{}, stockDate:{}", stockCode, stockDate);
+                    continue;
+                }
                 pulseAnalyseService.analysePulseResult(stockDate, stockInfo, prevStockInfo);
                 yiZiBanAnalyseService.analyseYiZiBanResult(stockDate, stockInfo);
                 tZiTypeAnalyseService.analyseTZiTypeResult(stockDate, stockInfo, prevStockInfo);
                 tiaoKongAnalyseService.analyseTiaoKongResult(stockDate, stockInfo, prevStockInfo);
+                logger.debug("finish analyse stock, stockCode:{}, stockDate:{}", stockCode, stockDate);
             } catch (Exception e) {
-                logger.warn("analyse stock fail, stockDate:{}, stockCode:{}, ex:{}", stockDate, stockCode, e);
+                logger.warn("analyse stock fail, stockDate:" + stockDate + ", stockCode:" + stockCode, e);
             }
         }
     }

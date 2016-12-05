@@ -3,7 +3,6 @@ package com.qingqing.stock_analyse.service.impl;
 import com.qingqing.stock_analyse.TestBase;
 import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.service.StockInfoService;
-import com.qingqing.stock_analyse.service.analyse.PulseAnalyseService;
 import com.qingqing.stock_analyse.service.analyse.YiZiBanAnalyseService;
 import com.qingqing.stock_analyse.util.StockDateUtil;
 import org.junit.Test;
@@ -25,14 +24,14 @@ public class StockYiZiBanAnalyseServiceImplTest extends TestBase {
 
     @Test
     public void testYiZiBanAnalyse() {
-        Date date = StockDateUtil.findLastOpenMarketkDay(new Date());
+        Date date = StockDateUtil.findLastestOpenMarketkDay(new Date());
         yiZiBanAnalyseService.analyseYiZiBanResult(date);
     }
 
     @Test
     public void testYiZiBanAnalayse2() {
         List<String> stockCodes = Arrays.asList("601882","603633","002059","002389","002819","002820","002821","002822","002823","002825","300376");
-        Date date = StockDateUtil.findLastOpenMarketkDay(new Date());
+        Date date = StockDateUtil.findLastestOpenMarketkDay(new Date());
         for (String stockCode : stockCodes) {
             StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
             yiZiBanAnalyseService.analyseYiZiBanResult(date, stockInfo);

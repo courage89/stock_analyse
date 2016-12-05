@@ -48,7 +48,7 @@ public class PulseAnalyseServiceImpl implements PulseAnalyseService {
         Map<String, StockPulseResult> map = new HashMap<String, StockPulseResult>();
         for (String stockCode : stockCodes) {
             try {
-                Date prevDate = StockDateUtil.findLastOpenMarketkDay(date);
+                Date prevDate = StockDateUtil.findLastestOpenMarketkDayExceptToday(date);
                 StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
                 StockInfo prevStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, prevDate);
                 analysePulseResult(date, stockInfo, prevStockInfo);

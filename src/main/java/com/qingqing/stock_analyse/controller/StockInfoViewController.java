@@ -1,7 +1,9 @@
 package com.qingqing.stock_analyse.controller;
 
 import com.qingqing.stock_analyse.controller.converter.StockResultViewConverter;
+import com.qingqing.stock_analyse.domain.result.StockPulseResult;
 import com.qingqing.stock_analyse.domain.result.StockTZiTypeResult;
+import com.qingqing.stock_analyse.domain.result.StockTiaoKongResult;
 import com.qingqing.stock_analyse.domain.result.StockYiZiBanResult;
 import com.qingqing.stock_analyse.service.StockCodeService;
 import com.qingqing.stock_analyse.service.analyse.PulseAnalyseService;
@@ -60,5 +62,35 @@ public class StockInfoViewController {
         Map<String, StockYiZiBanResult> map = yiZiBanAnalyseService.findAllYiZiBanResult(date);
         Map<String, String> stockCodeToNameMap = stockCodeService.findAllStockMapping();
         ServletUtil.sendTextResponse(httpServletResponse, HttpStatus.OK.value(), StockResultViewConverter.yiZiBanResultMapToString(map, stockCodeToNameMap, date));
+    }
+
+    @RequestMapping("analyse_result/tiaokong")
+    public void showTiaoKongAnalyseResult(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        Date date = RequestExtract.getDate(httpServletRequest);
+        Map<String, StockTiaoKongResult> map = tiaoKongAnalyseService.findAllTiaoKongResult(date);
+        Map<String, String> stockCodeToNameMap = stockCodeService.findAllStockMapping();
+        ServletUtil.sendTextResponse(httpServletResponse, HttpStatus.OK.value(), StockResultViewConverter.tiaoKongResultMapToString(map, stockCodeToNameMap, date));
+    }
+
+    @RequestMapping("analyse_result/pulse")
+    public void showPulseAnalyseResult(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        Date date = RequestExtract.getDate(httpServletRequest);
+        Map<String, StockPulseResult> map = pulseAnalyseService.findAllPulseResult(date);
+        Map<String, String> stockCodeToNameMap = stockCodeService.findAllStockMapping();
+        ServletUtil.sendTextResponse(httpServletResponse, HttpStatus.OK.value(), StockResultViewConverter.pulseResultMapToString(map, stockCodeToNameMap, date));
+    }
+
+    @RequestMapping("analyse_result/summary")
+    public void showAnalyseSummaryResult(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+        Date date = RequestExtract.getDate(httpServletRequest);
+        Map<String, StockPulseResult> pulseMap = pulseAnalyseService.findAllPulseResult(date);
+        Map<String, StockTiaoKongResult> tiaoKongMap = tiaoKongAnalyseService.findAllTiaoKongResult(date);
+        Map<String, StockYiZiBanResult> yiziBanMap = yiZiBanAnalyseService.findAllYiZiBanResult(date);
+        Map<String, StockTZiTypeResult> tZiTypeMap = tZiTypeAnalyseService.findAllTZiTypeResult(date);
+        Map<String, String> stockCodeToNameMap = stockCodeService.findAllStockMapping();
+
+
+
+        ServletUtil.sendTextResponse(httpServletResponse, HttpStatus.OK.value(), StockResultViewConverter.resultMapsToString(pulseMap, tiaoKongMap, yiziBanMap, tZiTypeMap, stockCodeToNameMap, date));
     }
 }

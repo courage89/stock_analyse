@@ -10,7 +10,6 @@ import com.qingqing.stock_analyse.constants.StockAnalyseConstants;
 import com.qingqing.stock_analyse.dao.analyse.StockTZiTypeResultMapper;
 import com.qingqing.stock_analyse.domain.StockInfo;
 import com.qingqing.stock_analyse.domain.result.StockTiaoKongResult;
-import com.qingqing.stock_analyse.domain.result.StockYiZiBanResult;
 import com.qingqing.stock_analyse.util.StockDateUtil;
 import com.qingqing.stock_analyse.util.StockPriceUtil;
 import org.slf4j.Logger;
@@ -51,7 +50,7 @@ public class TZiTypeAnalyseServiceImpl implements TZiTypeAnalyseService {
 		Map<String, StockTiaoKongResult> map = new HashMap<String, StockTiaoKongResult>();
 		for (String stockCode : stockCodes) {
 			try {
-				Date prevDate = StockDateUtil.findLastOpenMarketkDay(date);
+				Date prevDate = StockDateUtil.findLastestOpenMarketkDayExceptToday(date);
 				StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
 				StockInfo prevStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, prevDate);
 				analyseTZiTypeResult(date, stockInfo, prevStockInfo);

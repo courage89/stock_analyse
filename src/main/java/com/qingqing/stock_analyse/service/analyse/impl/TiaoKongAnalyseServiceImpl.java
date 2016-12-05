@@ -46,7 +46,7 @@ public class TiaoKongAnalyseServiceImpl implements TiaoKongAnalyseService {
         Map<String, StockTiaoKongResult> map = new HashMap<String, StockTiaoKongResult>();
         for (String stockCode : stockCodes) {
             try {
-                Date prevDate = StockDateUtil.findLastOpenMarketkDay(date);
+                Date prevDate = StockDateUtil.findLastestOpenMarketkDayExceptToday(date);
                 StockInfo stockInfo = stockInfoService.findByStockCodeAndDate(stockCode, date);
                 StockInfo prevStockInfo = stockInfoService.findByStockCodeAndDate(stockCode, prevDate);
                 analyseTiaoKongResult(date, stockInfo, prevStockInfo);

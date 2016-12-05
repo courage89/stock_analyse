@@ -18,7 +18,7 @@ public class StockPulseAnalyseServiceImplTest extends TestBase {
 
     @Test
     public void testPulseAnalyse() {
-        Date date = StockDateUtil.findLastOpenMarketkDay(new Date());
+        Date date = StockDateUtil.findLastestOpenMarketkDay(new Date());
         pulseAnalyseService.analysePulseResult(date);
     }
 }

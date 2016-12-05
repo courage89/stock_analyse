@@ -55,7 +55,7 @@ public class RequestExtract {
         if (!StringUtils.isEmpty(dateStr)) {
             date = StockDateUtil.stringToDate(dateStr);
         }
-        return date == null ? StockDateUtil.findLastOpenMarketkDay(new Date()) : date;
+        return date == null ? StockDateUtil.findLastestOpenMarketkDay(new Date()) : date;
     }
 
     public static String getVersion(HttpServletRequest request, String defaultVersion) {
